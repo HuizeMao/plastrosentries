@@ -1,0 +1,11 @@
+
+ - Research theme - *Plastic detection* need to be modified
+ 
+(Despite the large size, it is very unlikely that we will be able to spot garbage in the pictures we collect. 
+we need to find a larger area of focus to analyse.)
+
+ - Describe your experiment and what you plan to investigate. 
+Our experiment aims to raise awareness about plastic pollution. We will do this by training a deep learning system to predict the amount of plastic garbage on the collected image.
+
+ - What type of data do you plan to gather?
+We will collect images, location of the ISS, and time.
