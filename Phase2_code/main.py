@@ -106,6 +106,8 @@ while (now_time < start_time + datetime.timedelta(minutes=178)):
         # use zfill to pad the integer value used in filename to 3 digits (e.g. 001, 002...)
         cam.capture(dir_path + "/photo_" + str(photo_counter).zfill(3) + ".jpg")
         photo_counter += 1
+        #sleep
+        sleep(1)
         # update the current time
         now_time = datetime.now()
     except Exception as e:
