@@ -4,11 +4,11 @@ from picamera import PiCamera
 from logzero import logger
 from math import sin,cos
 from time import sleep
-import datetime
+from datetime import datetime, timedelta
 import logging
 import logzero
 import random
-import ephem
+from ephem import readtle, degree
 import math
 import csv
 import os
@@ -21,7 +21,7 @@ sh = SenseHat()
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 #function that creates a data file
-def create_csv(data_file):
+def create_csv_file(data_file):
     with open(data_file, 'w') as f:
         writer = csv.writer(f)
         header = ("Latitude ", "Longitude")
@@ -95,11 +95,13 @@ now_time = datetime.now()
 photo_counter=1
 
 ##collect data for roughly three hours
-while (now_time < start_time + datetime.timedelta(minutes=178)):
+while (now_time < start_time + timedelta(minutes=178)):
     try:
         logger.info("{} iteration {}".format(datetime.now(), photo_counter))
         # get latitude and longitude
         lat, lon = get_latlon()
+        lat = round(lat,3)
+        lon = round(lon,3)
         # Save the data to the file
         data = (lat, lon)
         add_csv_data(data_file, data)
@@ -112,5 +114,3 @@ while (now_time < start_time + datetime.timedelta(minutes=178)):
         now_time = datetime.now()
     except Exception as e:
         logger.error('{}: {})'.format(e.__class__.__name__, e))
-
-    
