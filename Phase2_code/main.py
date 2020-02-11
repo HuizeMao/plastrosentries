@@ -109,7 +109,7 @@ while (now_time < start_time + timedelta(minutes=178)):
         cam.capture(dir_path + "/photo_" + str(photo_counter).zfill(3) + ".jpg")
         photo_counter += 1
         #sleep
-        sleep(1)
+        sleep(8)
         # update the current time
         now_time = datetime.now()
     except Exception as e:
