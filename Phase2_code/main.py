@@ -1,6 +1,5 @@
 #import necessary libraries
-from sense_hat import SenseHat
-from picamera import PiCamera
+import picamera
 from logzero import logger
 from math import sin,cos
 from time import sleep
@@ -11,15 +10,12 @@ import random
 from ephem import readtle, degree
 import math
 import csv
-import os
+import os 
 
 ###initializations
-# Connect to the Sense Hat
-sh = SenseHat()
 
 #define directory path of this file
 dir_path = os.path.dirname(os.path.realpath(__file__))
-
 #function that creates a data file
 def create_csv_file(data_file):
     with open(data_file, 'w') as f:
@@ -38,7 +34,7 @@ def add_csv_data(data_file, data):
 ###capture images with position labels
 ##init
 # Set up camera
-cam = PiCamera()
+cam = picamera.PiCamera()
 cam.resolution = (1296, 972)
 
 # Latest TLE data for ISS location
@@ -105,8 +101,8 @@ while (now_time < start_time + timedelta(minutes=178)):
         # Save the data to the file
         data = (lat, lon)
         add_csv_data(data_file, data)
-        # use zfill to pad the integer value used in filename to 3 digits (e.g. 001, 002...)
-        cam.capture(dir_path + "/photo_" + str(photo_counter).zfill(3) + ".jpg")
+        # use zfill to pad the integer value used in filename to 4 digits (e.g. 0001, 0002...)
+        cam.capture(dir_path + "/photo_" + str(photo_counter).zfill(4) + ".jpg")
         photo_counter += 1
         #sleep
         sleep(8)
