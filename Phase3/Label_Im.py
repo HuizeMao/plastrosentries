@@ -12,7 +12,6 @@ NUM=len([f for f in os.listdir(dir)if os.path.isfile(os.path.join(dir, f))]) #to
 #groundtruth array
 label = np.zeros([NUM, 1296, 972, 1], dtype=np.uint8)#init output array
 
-
 ####edit in "convert" function####
 def convert(rgb,i,j):
     #get separate r, g, and b value of the pixel
@@ -27,7 +26,7 @@ def convert(rgb,i,j):
     classes: clouds, land, sea or night,ice.
     Apply special processing to the ISS window later
     """
-    
+
     return 0
 
 for file in os.listdir(dir):
