@@ -13,7 +13,7 @@ NUM=len([f for f in os.listdir(dir)if os.path.isfile(os.path.join(dir, f))]) #to
 label = np.zeros([NUM, 1296, 972, 1], dtype=np.uint8)#init output array
 
 ####edit in "convert" function####
-def convert(rgb,i,j):
+def convert(rgb,i,j): ##i,j is the pixel location
     #get separate r, g, and b value of the pixel
     R=px[i,j][0]
     G=px[i,j][1]
