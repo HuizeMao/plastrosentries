@@ -39,7 +39,7 @@ for file in os.listdir(dir):
    
     #iter every pixel and classify
     for i in range(0,w):
-        for j in range(1,h):
+        for j in range(0,h):
             convert(px[i,j],i,j) #label this pixel
         
     #update progress
