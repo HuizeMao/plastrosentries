@@ -6,26 +6,22 @@ from PIL import Image
 ####init####
 #input dir output dir
 dir = 'Training_Data'
-outdir = 'Training_Labels'
-cnt=1 #counter for the current image "id"
+outdir = 'Feed_Images'
+cnt=0 #counter for the current image "id"
 NUM=len([f for f in os.listdir(dir)if os.path.isfile(os.path.join(dir, f))]) #total # of images
 #groundtruth array
-label = np.zeros([NUM, 972, 1296, 1], dtype=np.uint8)#init output array
+feed = np.zeros([NUM, 972, 1296, 3], dtype=np.uint8)#init output array
 
 ####edit in "convert" function####
-def convert(rgb,i,j): ##i,j is the pixel location
+def convert(rgb,i,j):
     #get separate r, g, and b value of the pixel
     R=px[i,j][0]
     G=px[i,j][1]
     B=px[i,j][2]
 
-    ##edit here
-    #if r,g,b values in the range of label X: 
-    #np[cnt][j][i][0]= X
-    """
-    classes: clouds, land, sea or night,ice.
-    Apply special processing to the ISS window later
-    """
+    feed[cnt][j][i][0]=R
+    feed[cnt][j][i][1]=G
+    feed[cnt][j][i][2]=B
 
     return 0
 
@@ -37,13 +33,13 @@ for file in os.listdir(dir):
     w,h=im.size
     #print(str(w),str(h))
    
-    #iter every pixel and classify
+    #iter every pixel and convert to np array
     for i in range(0,w):
         for j in range(0,h):
-            convert(px[i,j],i,j) #label this pixel
+            convert(px[i,j],i,j) #convert this pixel
         
     #update progress
-    print(str(cnt)+"/"+str(NUM),"completed")
+    print(str(cnt)+"/"+str(NUM-1),"completed")
     cnt+=1
 
-np.save(outdir,label) #saves np array with size(BATCH_SIZE,H,W,1)
+np.save(outdir,feed) #saves np array with size(BATCH_SIZE,H,W,1)
