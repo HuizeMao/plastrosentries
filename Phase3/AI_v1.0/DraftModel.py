@@ -11,12 +11,13 @@ from matplotlib import pyplot as plt
 import numpy as np
 """
 Load numpy array here
-X_train = #images
+X_train = #images 
 Y_train = #labels
 X_CV = #validation images(20%)
 Y_CV = #validation labels
 """
-
+X_train=X_train/255.0
+Y_train=Y_train/255.0
 def FCN(input_height,input_width):
     n_classes=6
     img_input = Input(shape=(input_height,input_width , 3 ))
