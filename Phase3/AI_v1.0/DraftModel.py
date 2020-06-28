@@ -1,8 +1,6 @@
 ###install keras-segmentation which contain all util required
 ###pip install keras-segmentation
 import keras
-from keras_segmentation.models.model_utils import get_segmentation_model
-from keras_segmentation.models.unet import vgg_unet ##change 
 from keras.utils import plot_model
 from keras.layers import Input, Conv2D, MaxPooling2D, Dropout
 from keras.layers import concatenate,UpSampling2D, ZeroPadding2D

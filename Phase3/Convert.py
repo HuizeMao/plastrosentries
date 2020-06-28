@@ -27,7 +27,7 @@ def convert(rgb,i,j):
 
 for file in os.listdir(dir):
     #init var
-    ind=os.path.join(dir, file)
+    ind=os.path.join(dir, file)u
     im=Image.open(ind)
     px=im.load()
     w,h=im.size
