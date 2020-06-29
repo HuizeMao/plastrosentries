@@ -13,8 +13,7 @@ import numpy as np
 Load numpy array here
 X_train = #images 
 Y_train = #labels
-X_CV = #validation images(20%)
-Y_CV = #validation labels
+
 X_train=X_train/255.0
 Y_train=Y_train/255.0
 """
@@ -78,7 +77,7 @@ model.compile(loss='categorical_crossentropy',
             optimizer = keras.optimizers.SGD(lr=0.01, decay=0, momentum=0, nesterov=False),
             metrics=['acc',MeanIoU(num_classes=6)])
 ##Training
-history = model.fit(X_train, Y_train, batch_size = 1000,epochs = 1,verbose = 1, validation_data = (X_CV,Y_CV),shuffle=True)
+history = model.fit(X_train, Y_train, batch_size = 1000,epochs = 1,verbose = 1, validation_split=0.2,shuffle=True)
 ##safe
 model.save('fakeFCN.h5')
 
