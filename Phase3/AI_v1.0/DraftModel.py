@@ -71,7 +71,7 @@ def FCN(input_height,input_width):
 model=FCN(972,1296)
 
 """Preview Model"""
-plot_model(model, show_shapes=True,to_file='DraftModel.png')
+#plot_model(model, show_shapes=True,to_file='DraftModel.png')
 
 ##Config
 model.compile(loss='categorical_crossentropy',
@@ -82,12 +82,13 @@ history = model.fit(X_train, Y_train, batch_size = 1000,epochs = 1,verbose = 1, 
 ##safe
 model.save('fakeFCN.h5')
 
+"""
 #evaluate
 preds = model.evaluate(X_CV, Y_CV)
 
 print ("Loss = " + str(preds[0]))
 print ("Test Accuracy = " + str(preds[1]))
-
+"""
 #summary/Learning curve
 model.summary()
 
