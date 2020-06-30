@@ -10,6 +10,8 @@ from keras.metrics import MeanIoU
 from matplotlib.pyplot import imshow
 from matplotlib import pyplot as plt
 import numpy as np
+from keras.callbacks import ModelCheckpoint
+
 """
 Load numpy array here
 X_train = #images
@@ -75,13 +77,14 @@ model=FCN(296, 296)
 model.compile(loss='categorical_crossentropy',
             optimizer = keras.optimizers.Adam(lr=0.01),
             metrics=['acc',MeanIoU(num_classes=6)])
+
 ##save best
 mc = ModelCheckpoint('DraftModel.h5', monitor='val_acc', mode='max', verbose=1, save_best_only=True)
-                     
+
 ##Training
-history = model.fit(X_train, Y_train, batch_size = 64,epochs = 3,verbose = 2, validation_split=0.2, shuffle=True,callbacks=[mc])
+history = model.fit(X_train, Y_train, batch_size = 5,epochs = 15,verbose = 2, validation_split=0.2, shuffle=True,callbacks=[mc])
 ##save
-#model.save('fakeFCN.h5')
+model.save('fakeFCN.h5')
 
 
 #summary/Learning curve
@@ -91,17 +94,17 @@ model.summary()
 # summarize history for accuracy
 plt.plot(history.history['acc'])
 plt.plot(history.history['val_acc'])
-plt.title('model accuracy')
-plt.ylabel('accuracy')
-plt.xlabel('epoch')
-plt.legend(['train', 'test'], loc='upper left')
+plt.title('Model Accuracy')
+plt.ylabel('Accuracy')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Validation'], loc='upper left')
 plt.savefig("LCaccuracy.png") #LC=Learning Curve
 plt.clf()
 # summarize history for loss
 plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
-plt.title('model loss')
-plt.ylabel('loss')
-plt.xlabel('epoch')
-plt.legend(['train', 'test'], loc='upper left')
+plt.title('Model Loss')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Validation'], loc='upper left')
 plt.savefig("LCloss.png")
