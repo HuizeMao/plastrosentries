@@ -76,10 +76,10 @@ model.compile(loss='categorical_crossentropy',
             optimizer = keras.optimizers.Adam(lr=0.01),
             metrics=['acc',MeanIoU(num_classes=6)])
 ##save best
-mc = ModelCheckpoint('DraftModel.h5', monitor='val_acc', mode='max', verbose=1, save_best_only=
+mc = ModelCheckpoint('DraftModel.h5', monitor='val_acc', mode='max', verbose=1, save_best_only=True)
                      
 ##Training
-history = model.fit(X_train, Y_train, batch_size = 5,epochs = 15,verbose = 2, validation_split=0.2, shuffle=True,callbacks=[mc])
+history = model.fit(X_train, Y_train, batch_size = 64,epochs = 3,verbose = 2, validation_split=0.2, shuffle=True,callbacks=[mc])
 ##save
 #model.save('fakeFCN.h5')
 
