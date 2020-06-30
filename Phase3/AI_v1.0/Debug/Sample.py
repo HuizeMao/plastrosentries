@@ -11,7 +11,7 @@ from matplotlib.pyplot import imshow
 from matplotlib import pyplot as plt
 import numpy as np
 from keras.callbacks import ModelCheckpoint
-
+from keras.utils import plot_model
 """
 Load numpy array here
 X_train = #images
@@ -25,14 +25,13 @@ for gpu in gpus:
 
 #gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.5)
 #theSession= tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
-
+"""
 X_train = np.load("smallImg.npy")
 Y_train = np.load("smalllabel.npy")
 print(X_train.shape)
 print(Y_train.shape)
 X_train=X_train/255.0
-Y_train=Y_train/255.0
-
+"""
 def FCN(input_height,input_width):
     n_classes=6
     img_input = Input(shape=(input_height,input_width,3))
@@ -65,26 +64,28 @@ def FCN(input_height,input_width):
     """
     Here conv1 is concatenated with conv4, and conv2 is concatenated with conv3. 
     """
-    out = Conv2D( n_classes, (1, 1), activation='sigmoid', padding='same')(conv5)
+    out = Conv2D( n_classes, (1, 1), activation='softmax', padding='same')(conv5)
     #model = get_segmentation_model(img_input ,  out ) # this would build the segmentation model
     model = Model(inputs = img_input, outputs = out, name='FCN')
     
     return model
 
 
-model=FCN(296, 296)
+model=FCN(324, 432)
  ##Config    
 model.compile(loss='categorical_crossentropy',
             optimizer = keras.optimizers.Adam(lr=0.01),
             metrics=['acc',MeanIoU(num_classes=6)])
+plot_model(model, to_file='model.png')
 
+"""
 ##save best
 mc = ModelCheckpoint('DraftModel.h5', monitor='val_acc', mode='max', verbose=1, save_best_only=True)
 
 ##Training
-history = model.fit(X_train, Y_train, batch_size = 5,epochs = 15,verbose = 2, validation_split=0.2, shuffle=True,callbacks=[mc])
+history = model.fit(X_train, Y_train, batch_size = 1,epochs = 15,verbose = 2, validation_split=0.2, shuffle=True,callbacks=[mc])
 ##save
-model.save('fakeFCN.h5')
+#model.save('fakeFCN.h5')
 
 
 #summary/Learning curve
@@ -108,3 +109,4 @@ plt.ylabel('Loss')
 plt.xlabel('Epoch')
 plt.legend(['Train', 'Validation'], loc='upper left')
 plt.savefig("LCloss.png")
+"""
