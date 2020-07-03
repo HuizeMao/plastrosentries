@@ -1,0 +1,6 @@
+conda create --name name_env python=3.6
+activate name_env
+pip install tensorflow-gpu    #o instala la version concreta -> pip install tens
+orflow-gpu==2.1.0
+pip install ipython pandas jupyter matplotlib numpy
+python ejemplo1.py
